@@ -12,20 +12,24 @@ import NoteList from '../../components/NoteList/NoteList';
 import Modal from '../../components/Modal/Modal';
 import NoteForm from '../../components/NoteForm/NoteForm';
 import Loader from '../../components/Loader/Loader';
-//import css from './Notes.module.css';
-
 import css from '../../components/NotesPage/NotesPage.module.css';
 
 export const NOTES_QUERY_KEY = 'notes';
 
-export default function NotesClient() {
+
+interface NotesClientProps {
+  tag?: string; 
+}
+
+export default function NotesClient({ tag }: NotesClientProps) {
   const [page, setPage] = useState<number>(1);
   const [search, setSearch] = useState<string>('');
   const [debouncedSearch] = useDebounce(search, 500);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const queryClient = useQueryClient();
-  const queryKey = [NOTES_QUERY_KEY, page, debouncedSearch];
+
+  const queryKey = [NOTES_QUERY_KEY, page, debouncedSearch, tag];
 
   const { data, isLoading, isError, isFetching } = useQuery<FetchNotesResponse, Error>({
     queryKey,
@@ -34,6 +38,7 @@ export default function NotesClient() {
         page,
         perPage: 12,
         search: debouncedSearch,
+        ...(tag ? { tag } : {}),
       } as FetchNotesParams),
     placeholderData: (prev) => prev,
   });
