@@ -1,6 +1,6 @@
 
 import { use } from 'react';
-import NotesClient from '@/app/notes/Notes.client';
+import NotesClient from './Notes.client';
 
 export default function FilteredNotesPage({
   params,

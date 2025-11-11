@@ -1,6 +1,6 @@
 
 'use client';
-import type { ComponentPropsWithoutRef } from 'react';
+//import type { ComponentPropsWithoutRef } from 'react';
 
 interface ErrorProps {
   error: Error;
@@ -19,4 +19,6 @@ export default function NotesError({ error, reset }: ErrorProps) {
     </div>
   );
 }
+
+
 
